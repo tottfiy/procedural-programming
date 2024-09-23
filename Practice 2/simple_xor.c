@@ -29,12 +29,12 @@ void xor(int value, int key, int verbose)
     {
         int val_bin = converter(value);
         int encr_bin = converter(encr);
-        printf("\n\nOriginal value (Decimal): %d\nBinary: %d\n\nEncrypted value (Decimal): %d\nBinary: %d\n\nDecrypted value (Decimal): %d\nBinary: %d\n\n",
+        printf("\n\nOriginal value (Decimal): %d\nBinary: %d\n\nEncrypted value (Decimal): %d\nBinary: %d\n\nDecrypted value (Decimal): %d\nBinary: %d\n",
         value, val_bin, encr, encr_bin, decr, val_bin);
     }
     else
     {
-        printf("\n\nOriginal value: %d\n\nEncrypted value: %d\n\nDecrypted value: %d",
+        printf("\n\nOriginal value: %d\n\nEncrypted value: %d\n\nDecrypted value: %d\n",
         value, encr, decr);
     }
 }
