@@ -1,0 +1,11 @@
+1. mkdir log_backup
+2. sudo cp -a /var/log/*.log ./log_backup
+3. sudo grep -Rn './log_backup/' -e 'error' > found_errors.txt
+4. sudo grep -Rn './log_backup/' -e 'warning' > found_warnings.txt
+5. sed -i 's/[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{3\}Z/****--**T::.****/g' found_errors.txt found_warnings.txt
+6. tar -zcvf err-warn.tar.gz found_errors.txt found_warnings.txt
+7. git clone https://github.com/tottfiy/C_programming_home_task_1.git
+8. git fetch origin
+9. git checkout -b archive
+10. git add err-warn.tar.gz + git commit -m "added compressed file"
+11. git branch -D archive + git push origin -d archive
