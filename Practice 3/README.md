@@ -1,15 +1,8 @@
-# **Compiling simple_xor.c**
+# **Compiling ceasar.c**
 .
->1. gcc **simple_xor.c** -o **xor**
->2. **./xor**
+>1. gcc -w **ceasar.c** -o **ceasar**
+>2. **./ceasar**
 
 .
-#
 
-# **Compiling IEEE754.c**
-.
->1. gcc **IEEE754.c** -o **task2** -lm
->2. **./task2**
-
-.
 ### Now it will work!
