@@ -23,7 +23,7 @@ void first_day_calc(int year, int month, int *fday, int *leap) {
     int century = year / 100;
     int cent_code;
 
-    if (century == 17){
+    if (century == 17) {
         cent_code = code[0];
     } else if (century == 18){
         cent_code = code[1];
