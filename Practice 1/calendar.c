@@ -23,7 +23,7 @@ void first_day_calc(int year, int month, int *fday, int *leap) {
     int century = year / 100;
     int cent_code;
 
-    if (century == 17){
+    if (century == 17) {
         cent_code = code[0];
     } else if (century == 18){
         cent_code = code[1];
@@ -135,7 +135,7 @@ int main()
 {
     int year = year_scan();
     int month = month_scan();
-    if (month > 12| month < 1){
+    if (month > 12| month < 1) {
         printf("Wrong input.\nWrite number of a month from 1 to 12.");
         return 0;
     } else{

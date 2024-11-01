@@ -18,4 +18,3 @@ int main() {
     printf("Array after changes: \n\n");
     print_array(arr);
     return 0;
-}
