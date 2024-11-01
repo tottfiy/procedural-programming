@@ -23,12 +23,12 @@ void** append(void** ptr, int* size, void* item, list_data_type type) {
         int * int_ptr = malloc(sizeof(int));
         *int_ptr = *(int*)item;
         ptr[*size-1] = int_ptr;
-        
+
     } else if (type==float_type) {
         float * flt_ptr = malloc(sizeof(float));
         *flt_ptr = *(float*)item;
         ptr[*size-1] = flt_ptr;
-        
+
     } else if (type==string_type) {
         char * str_ptr = malloc(strlen((char*)item) + 1);
         strcpy(str_ptr, (char*)item);
@@ -57,17 +57,17 @@ void print(const void** ptr, int size){
         case int_type: 
             printf("%d ", *(int*)ptr[i]);
             break;
-        
+
         case float_type:
             printf("%f ", *(float*)ptr[i]);
             break;
-        
+
         case string_type: 
             printf("%s ", (char*)ptr[i]);
             break;
         }
-        
-        
+
+
     }
     printf("\n");
 }
