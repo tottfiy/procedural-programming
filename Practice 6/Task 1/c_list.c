@@ -30,4 +30,3 @@ void print_list(const void* list[], const list_data_type list_type[], int size) 
     }
     
 }
-

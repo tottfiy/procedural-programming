@@ -34,4 +34,3 @@ element and casts the pointer accordingly for printing.
 * @param size The number of elements in the list.
 */
 void print_list(const void* list[], const list_data_type[], int size);
-
