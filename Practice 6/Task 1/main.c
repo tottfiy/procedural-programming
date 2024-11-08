@@ -16,4 +16,3 @@ size = append_list_item(list,  list_type,size, s2, string_type); // Add a string
 print_list((const void**)list, list_type, size); // Print the elements
 return 0;
 }
-

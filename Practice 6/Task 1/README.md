@@ -36,4 +36,3 @@ gcc -o my_program main.c c_list.c
 
 This will directly create the executable `my_program` without creating intermediate object files.
 
-
