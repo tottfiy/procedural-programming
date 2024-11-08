@@ -3,37 +3,15 @@
 #include <string.h>
 #include <assert.h>
 
-#ifndef ssize_t
-typedef long ssize_t;  // Define ssize_t if not available
-#endif
-
-ssize_t custom_getline(char **lineptr, size_t *n, const char *source) {
-    if (!source) {
-        return -1;  // Error if the source is NULL
+ssize_t custom_getline(char ** line, size_t * len, const char * inp) {
+    if (inp == NULL) {
+        return -1;
     }
+    size_t len_line = strlen(inp);
+    *line = malloc(sizeof(len_line+1));
 
-    size_t len = strlen(source);
-    
-    // If lineptr is NULL or *lineptr is NULL, allocate memory
-    if (lineptr == NULL || (lineptr && *lineptr == NULL)) {
-        *lineptr = malloc(len + 1);  // Allocate space for the string + null terminator
-        if (*lineptr == NULL) {
-            return -1;  // Memory allocation failed
-        }
-        *n = len + 1;  // Set size
-    } else if (*n < len + 1) {  // If the existing buffer is too small
-        char *temp = realloc(*lineptr, len + 1);
-        if (temp == NULL) {
-            return -1;  // Memory reallocation failed
-        }
-        *lineptr = temp;
-        *n = len + 1;  // Update size
-    }
-
-    // Copy the source string to lineptr
-    strcpy(*lineptr, source);
-
-    return len;  // Return the number of characters read
+    strcpy(*line, inp);
+    return len_line;
 }
 
 int main() {
