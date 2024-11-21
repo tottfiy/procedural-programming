@@ -3,38 +3,60 @@
 #include <string.h>
 #include <assert.h>
 
-#ifndef ssize_t
-typedef long ssize_t;  // Define ssize_t if not available
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
 
-ssize_t custom_getline(char **lineptr, size_t *n, const char *source) {
-    if (!source) {
-        return -1;  // Error if the source is NULL
+ssize_t custom_getline(char **line, size_t *len, const char *inp) {
+    if (inp == NULL) {
+        return -1; // Invalid input string
     }
 
-    size_t len = strlen(source);
-    
-    // If lineptr is NULL or *lineptr is NULL, allocate memory
-    if (lineptr == NULL || (lineptr && *lineptr == NULL)) {
-        *lineptr = malloc(len + 1);  // Allocate space for the string + null terminator
-        if (*lineptr == NULL) {
-            return -1;  // Memory allocation failed
-        }
-        *n = len + 1;  // Set size
-    } else if (*n < len + 1) {  // If the existing buffer is too small
-        char *temp = realloc(*lineptr, len + 1);
-        if (temp == NULL) {
-            return -1;  // Memory reallocation failed
-        }
-        *lineptr = temp;
-        *n = len + 1;  // Update size
+    size_t temp_size = *len > 0 ? *len : 5; // Initial buffer size
+    *line = malloc(temp_size);
+    if (*line == NULL) {
+        printf("Error while allocating memory.\n");
+        return -1;
     }
 
-    // Copy the source string to lineptr
-    strcpy(*lineptr, source);
+    size_t pos = 0;
 
-    return len;  // Return the number of characters read
+    while (*inp != '\0' && *inp != '\n') {
+        if (pos + 1 >= temp_size) { // Resize buffer if needed
+            temp_size *= 2;
+            char *new_line = realloc(*line, temp_size);
+            if (new_line == NULL) {
+                printf("Error while reallocating memory.\n");
+                free(*line);
+                return -1;
+            }
+            *line = new_line;  // Don't free new_line here
+        }
+
+        (*line)[pos++] = *inp++;
+    }
+
+    if (*inp == '\n') { // Add newline character if present
+        if (pos + 1 >= temp_size) {
+            temp_size *= 2;
+            char *new_line = realloc(*line, temp_size);
+            if (new_line == NULL) {
+                printf("Error while reallocating memory.\n");
+                free(*line);
+                return -1;
+            }
+            *line = new_line;  // Don't free new_line here
+        }
+
+        (*line)[pos++] = '\n';
+    }
+
+    (*line)[pos] = '\0'; // Null-terminate the string
+    *len = temp_size;    // Update length
+    return pos;          // Return number of characters read
 }
+
 
 int main() {
     char *line = NULL;
@@ -52,13 +74,28 @@ int main() {
     const char *test_str2 = "";
     nread = custom_getline(&line, &len, test_str2);
     assert(nread == 0);  // Empty string should return 0
-    assert(strcmp(line, test_str2) == 0);  // Check if the string was copied correctly
+    assert(line[0] == '\0');  // Check if the string was copied correctly
     printf("Test 2 passed\n");
 
     // Test case 3: NULL source
     nread = custom_getline(&line, &len, NULL);
     assert(nread == -1);  // NULL source should return -1
     printf("Test 3 passed\n");
+
+    // Test case 4: custom len 
+    len = 20;
+    const char *test_str3 = "I am 24 characters long";
+    nread = custom_getline(&line, &len, test_str3);
+    assert(nread == strlen(test_str3));  
+    assert(strcmp(line, test_str3) == 0);  // Check if the string was copied correctly
+    printf("Test 4 passed\n");
+
+    // Test case 5: 1 character string 
+    const char *test_str4 = "O";
+    nread = custom_getline(&line, &len, test_str4);
+    assert(nread == strlen(test_str4));  
+    assert(strcmp(line, test_str4) == 0);  // Check if the string was copied correctly
+    printf("Test 5 passed\n");
 
     // Free allocated memory
     free(line);
