@@ -80,3 +80,4 @@ void destroy(void** ptr, int size){
     free(ptr);
     free(type_array);
 }
+

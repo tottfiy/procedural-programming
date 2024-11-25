@@ -29,3 +29,4 @@ void print(const void** ptr, int size);
 void destroy(void** ptr, int size);
 
 #endif // C_LIST_H
+
